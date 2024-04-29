@@ -51,16 +51,13 @@ def createJira():
     "update": {}
     } )
 
-
-    response = requests.request(
-        "POST",
-        url,
-        data=payload,
-        headers=headers,
-        auth=auth
-    )
-
-    return json.dumps(json.loads(response.text), sort_keys=True, indent=4, separators=(",", ": "))
+    webhook = request.json
+    response = None
+    if webhook['comment'].get('body') == "/jira":
+        response = requests.request("POST", url, data=payload, headers=headers, auth=auth)
+        return json.dumps(json.loads(response.text), sort_keys=True, indent=4, separators=(",", ": "))
+    else:
+        print("Comment should be only '/jira' then only issue will be created ")
 
 
 if __name__ == '__main__':
