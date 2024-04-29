@@ -51,7 +51,7 @@ def createJira():
     "update": {}
     } )
 
-    webhook = request.json
+    webhook = requests.json
     response = None
     if webhook['comment'].get('body') == "/jira":
         response = requests.request("POST", url, data=payload, headers=headers, auth=auth)
