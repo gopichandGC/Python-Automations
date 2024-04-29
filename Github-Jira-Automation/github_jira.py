@@ -5,6 +5,7 @@ from requests.auth import HTTPBasicAuth
 import json
 import os
 from flask import Flask
+from flask import request
 
 app = Flask(__name__)
 
@@ -51,7 +52,7 @@ def createJira():
     "update": {}
     } )
 
-    webhook = requests.json
+    webhook = request.json
     response = None
     if webhook['comment'].get('body') == "/jira":
         response = requests.request("POST", url, data=payload, headers=headers, auth=auth)
